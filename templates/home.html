@@ -1,0 +1,192 @@
+
+{% extends "_base.html" %}
+
+{% block content %}
+<section>
+  <h1>Todos</h1>
+
+  <hr><br><br>
+
+  <div class="row">
+    <div class="col">
+      <div class="header">
+        <h2>GET</h2>
+      </div>
+      <button class="btn btn-primary" id="getTodos">Read</button>
+      <p><ul id="todoList"></ul></p>
+    </div>
+
+    <div class="col">
+      <div class="header">
+        <h2>POST</h2>
+      </div>
+      <form id="addTodoForm">
+        <div class="mb-3">
+          <label for="todoTaskPost">Task</label>
+          <input type="text" class="form-control" id="todoTaskPost" placeholder="Task" required>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="todoCompletedPost">
+          <label class="form-check-label" for="todoCompletedPost">Completed?</label>
+        </div>
+        <button type="submit" class="btn btn-success">Create</button>
+      </form>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <div class="header">
+        <h2>PUT</h2>
+      </div>
+      <form id="updateTodoForm">
+        <div class="mb-3">
+          <label for="todoIdPut">ID</label>
+          <input type="number" class="form-control" id="todoIdPut" placeholder="Todo ID">
+        </div>
+        <div class="mb-3">
+          <label for="todoTaskPut">Task</label>
+          <input type="text" class="form-control" id="todoTaskPut" placeholder="Task">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="todoCompletedPut">
+          <label class="form-check-label" for="todoCompletedPut">Completed?</label>
+        </div>
+        <button type="submit" class="btn btn-warning">Update</button>
+      </form>
+    </div>
+
+    <div class="col">
+      <div class="header">
+        <h2>DELETE</h2>
+      </div>
+      <form id="deleteTodoForm">
+        <div class="mb-3">
+          <label for="todoIdDelete">ID</label>
+          <input type="number" class="form-control" id="todoIdDelete" placeholder="Todo ID">
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+
+  // // fetch api examples
+  // (function() {
+
+  //   console.log("ready!");
+
+  //   const allTodosUrl = "{% url 'todos' %}";
+
+  //    // GET all todos
+  //   const readButton = document.getElementById("getTodos");
+  //   readButton.addEventListener("click", () => {
+  //     getAllTodos(allTodosUrl);
+  //   });
+
+  //   // POST
+  //   const addTodoForm = document.getElementById("addTodoForm");
+  //   addTodoForm.addEventListener("submit", (e) => {
+  //     // prevent page reload
+  //     e.preventDefault();
+  //     // get the values from the form fields
+  //     const formData = {
+  //       task: addTodoForm.elements["todoTaskPost"].value,
+  //       completed: addTodoForm.elements["todoCompletedPost"].checked,
+  //     }
+  //     addTodo(allTodosUrl, formData);
+  //     addTodoForm.reset();
+  //   });
+
+  //   // PUT
+  //   const updateTodoForm = document.getElementById("updateTodoForm");
+  //   updateTodoForm.addEventListener("submit", (e) => {
+  //     // prevent page reload
+  //     e.preventDefault();
+  //     // get the values from the form fields
+  //     const formData = {
+  //       task: updateTodoForm.elements["todoTaskPut"].value,
+  //       completed: updateTodoForm.elements["todoCompletedPut"].checked,
+  //     }
+
+  //     const todoId = updateTodoForm.elements["todoIdPut"].value;
+  //     const singleTodoUrl = `/todos/${todoId}/`;
+  //     updateTodo(singleTodoUrl, formData);
+  //     updateTodoForm.reset();
+  //   });
+
+  //   // DELETE
+  //   const deleteTodoForm = document.getElementById("deleteTodoForm");
+  //   deleteTodoForm.addEventListener("submit", (e) => {
+  //     // prevent page reload
+  //     e.preventDefault();
+
+  //     const todoId = deleteTodoForm.elements["todoIdDelete"].value;
+  //     const singleTodoUrl = `/todos/${todoId}/`;
+  //     deleteTodo(singleTodoUrl);
+  //     deleteTodoForm.reset();
+  //   });
+
+  // })();
+
+
+  // jquery examples
+  $(function() {
+    console.log("ready!");
+
+    const url = "{% url 'todos' %}";
+
+    // GET all todos
+    $("#getTodos").on('click', () => {
+      getAllTodosJQuery(url);
+    });
+
+    // POST
+    $("#addTodoForm").on('submit', (e) => {
+      // prevent page reload
+      e.preventDefault();
+      // get the values from the form fields
+      const formData = {
+        task: addTodoForm.elements["todoTaskPost"].value,
+        completed: addTodoForm.elements["todoCompletedPost"].checked,
+      }
+      addTodoJQuery(url, formData);
+      $("#addTodoForm").trigger("reset");
+    });
+
+    // PUT
+    $("#updateTodoForm").on('submit', (e) => {
+      // prevent page reload
+      e.preventDefault();
+      // get the values from the form fields
+      const formData = {
+        task: updateTodoForm.elements["todoTaskPut"].value,
+        completed: updateTodoForm.elements["todoCompletedPut"].checked,
+      }
+
+      const todoId = updateTodoForm.elements["todoIdPut"].value;
+      const singleTodoUrl = `/todos/${todoId}/`;
+      updateTodoJQuery(singleTodoUrl, formData);
+      $("#updateTodoForm").trigger("reset");
+    });
+
+    // DELETE
+    $("#deleteTodoForm").on('submit', (e) => {
+      // prevent page reload
+      e.preventDefault();
+
+      const todoId = deleteTodoForm.elements["todoIdDelete"].value;
+      const singleTodoUrl = `/todos/${todoId}/`;
+      deleteTodoJQuery(singleTodoUrl);
+      $("#deleteTodoForm").trigger("reset");
+    });
+  });
+
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+body {
+  padding: 3rem 0;
+}
+
+.col {
+  border: solid #dee2e6;
+  border-width: 1px;
+  padding: 1.5rem;
+  margin: 10px;
+}
+
+.header {
+  padding-bottom: 2rem;
+  text-align: center;
+}
