@@ -1,3 +1,4 @@
+// https://docs.djangoproject.com/en/3.2/ref/csrf/#acquiring-the-token-if-csrf-use-sessions-and-csrf-cookie-httponly-are-false
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -44,7 +45,7 @@ function addTodo(url, payload) {
     credentials: "same-origin",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
+      "X-CSRFToken": getCookie("csrftoken"),
     },
     body: JSON.stringify({payload: payload})
   })
@@ -61,7 +62,7 @@ function updateTodo(url, payload) {
     credentials: "same-origin",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
+      "X-CSRFToken": getCookie("csrftoken"),
     },
     body: JSON.stringify({payload: payload})
   })
@@ -78,95 +79,11 @@ function deleteTodo(url) {
     credentials: "same-origin",
     headers: {
       "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
+      "X-CSRFToken": getCookie("csrftoken"),
     }
   })
   .then(response => response.json())
   .then(data => {
     console.log(data);
-  });
-}
-
-
-function getAllTodosJQuery(url) {
-  $.ajax({
-    url: url,
-    type: "GET",
-    dataType: "json",
-    success: (data) => {
-      const todoList = $("#todoList");
-      todoList.empty();
-
-      (data.context).forEach(todo => {
-        const todoHTMLElement = `
-          <li>
-            <p>Task: ${todo.task}</p>
-            <p>Completed?: ${todo.completed}</p>
-          </li>`
-        todoList.append(todoHTMLElement);
-      });
-    },
-    error: (error) => {
-      console.log(error);
-    }
-  });
-}
-
-
-function addTodoJQuery(url, payload) {
-  $.ajax({
-    url: url,
-    type: "POST",
-    dataType: "json",
-    data: JSON.stringify({payload: payload,}),
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
-    },
-    success: (data) => {
-      console.log(data);
-    },
-    error: (error) => {
-      console.log(error);
-    }
-  });
-}
-
-
-function updateTodoJQuery(url, payload) {
-  $.ajax({
-    url: url,
-    type: "PUT",
-    dataType: "json",
-    data: JSON.stringify({payload: payload,}),
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
-    },
-    success: (data) => {
-      console.log(data);
-    },
-    error: (error) => {
-      console.log(error);
-    }
-  });
-}
-
-
-function deleteTodoJQuery(url) {
-  $.ajax({
-    url: url,
-    type: "DELETE",
-    dataType: "json",
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-      'X-CSRFToken': getCookie("csrftoken"),
-    },
-    success: (data) => {
-      console.log(data);
-    },
-    error: (error) => {
-      console.log(error);
-    }
   });
 }

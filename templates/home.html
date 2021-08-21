@@ -77,78 +77,22 @@
 {% block javascript %}
 <script>
 
-  // // fetch api examples
-  // (function() {
+  // fetch api examples
+  (function() {
 
-  //   console.log("ready!");
-
-  //   const allTodosUrl = "{% url 'todos' %}";
-
-  //    // GET all todos
-  //   const readButton = document.getElementById("getTodos");
-  //   readButton.addEventListener("click", () => {
-  //     getAllTodos(allTodosUrl);
-  //   });
-
-  //   // POST
-  //   const addTodoForm = document.getElementById("addTodoForm");
-  //   addTodoForm.addEventListener("submit", (e) => {
-  //     // prevent page reload
-  //     e.preventDefault();
-  //     // get the values from the form fields
-  //     const formData = {
-  //       task: addTodoForm.elements["todoTaskPost"].value,
-  //       completed: addTodoForm.elements["todoCompletedPost"].checked,
-  //     }
-  //     addTodo(allTodosUrl, formData);
-  //     addTodoForm.reset();
-  //   });
-
-  //   // PUT
-  //   const updateTodoForm = document.getElementById("updateTodoForm");
-  //   updateTodoForm.addEventListener("submit", (e) => {
-  //     // prevent page reload
-  //     e.preventDefault();
-  //     // get the values from the form fields
-  //     const formData = {
-  //       task: updateTodoForm.elements["todoTaskPut"].value,
-  //       completed: updateTodoForm.elements["todoCompletedPut"].checked,
-  //     }
-
-  //     const todoId = updateTodoForm.elements["todoIdPut"].value;
-  //     const singleTodoUrl = `/todos/${todoId}/`;
-  //     updateTodo(singleTodoUrl, formData);
-  //     updateTodoForm.reset();
-  //   });
-
-  //   // DELETE
-  //   const deleteTodoForm = document.getElementById("deleteTodoForm");
-  //   deleteTodoForm.addEventListener("submit", (e) => {
-  //     // prevent page reload
-  //     e.preventDefault();
-
-  //     const todoId = deleteTodoForm.elements["todoIdDelete"].value;
-  //     const singleTodoUrl = `/todos/${todoId}/`;
-  //     deleteTodo(singleTodoUrl);
-  //     deleteTodoForm.reset();
-  //   });
-
-  // })();
-
-
-  // jquery examples
-  $(function() {
     console.log("ready!");
 
-    const url = "{% url 'todos' %}";
+    const allTodosUrl = "{% url 'todos' %}";
 
-    // GET all todos
-    $("#getTodos").on('click', () => {
-      getAllTodosJQuery(url);
+     // GET all todos
+    const readButton = document.getElementById("getTodos");
+    readButton.addEventListener("click", () => {
+      getAllTodos(allTodosUrl);
     });
 
     // POST
-    $("#addTodoForm").on('submit', (e) => {
+    const addTodoForm = document.getElementById("addTodoForm");
+    addTodoForm.addEventListener("submit", (e) => {
       // prevent page reload
       e.preventDefault();
       // get the values from the form fields
@@ -156,12 +100,13 @@
         task: addTodoForm.elements["todoTaskPost"].value,
         completed: addTodoForm.elements["todoCompletedPost"].checked,
       }
-      addTodoJQuery(url, formData);
-      $("#addTodoForm").trigger("reset");
+      addTodo(allTodosUrl, formData);
+      addTodoForm.reset();
     });
 
     // PUT
-    $("#updateTodoForm").on('submit', (e) => {
+    const updateTodoForm = document.getElementById("updateTodoForm");
+    updateTodoForm.addEventListener("submit", (e) => {
       // prevent page reload
       e.preventDefault();
       // get the values from the form fields
@@ -172,21 +117,23 @@
 
       const todoId = updateTodoForm.elements["todoIdPut"].value;
       const singleTodoUrl = `/todos/${todoId}/`;
-      updateTodoJQuery(singleTodoUrl, formData);
-      $("#updateTodoForm").trigger("reset");
+      updateTodo(singleTodoUrl, formData);
+      updateTodoForm.reset();
     });
 
     // DELETE
-    $("#deleteTodoForm").on('submit', (e) => {
+    const deleteTodoForm = document.getElementById("deleteTodoForm");
+    deleteTodoForm.addEventListener("submit", (e) => {
       // prevent page reload
       e.preventDefault();
 
       const todoId = deleteTodoForm.elements["todoIdDelete"].value;
       const singleTodoUrl = `/todos/${todoId}/`;
-      deleteTodoJQuery(singleTodoUrl);
-      $("#deleteTodoForm").trigger("reset");
+      deleteTodo(singleTodoUrl);
+      deleteTodoForm.reset();
     });
-  });
+
+  })();
 
 </script>
 {% endblock %}
